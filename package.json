@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/jassingh94/SubscriptionService/issues"
   },
-  "homepage": "https://github.com/jassingh94/SubscriptionService#readme"
+  "homepage": "https://github.com/jassingh94/SubscriptionService#readme",
+  "dependencies": {
+    "commander": "^8.1.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7"
+  }
 }

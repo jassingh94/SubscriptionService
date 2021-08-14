@@ -5,7 +5,7 @@ This service houses rest services for a subscription model
 
 > Node.js v14+
 
-> Mongo (optional) 
+> Mongo v4.0+(optional) 
 
 - **Note : Will break unexpectedly on Node.js v12 or below. Due to use of optional chaining.**
 - **Supports <u>In-memory mongo hosting</u>**

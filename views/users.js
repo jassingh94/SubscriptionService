@@ -1,5 +1,6 @@
 
 const users = require('../src/lib/users')
+const moment = require('moment')
 /**
  *
  *
@@ -40,6 +41,10 @@ module.exports = (e, app) => {
                     return res.send("User not found");
                 }
                 else {
+                    user = {
+                        user_name : user.user_name,
+                        created_at : moment(user.created_at).format('YYYY-MM-DD HH:mm:ss')
+                    }
                     return res.send(user);
                 }
             })

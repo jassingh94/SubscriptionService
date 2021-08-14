@@ -13,3 +13,8 @@ e
     .init(process.env, process.args)
     .then((e) => e.start())
     .then(() => console.log("Service started"))
+    //handle any error in startup
+    .catch(err=>{
+        console.error('Error in startup')
+        console.error(err)
+    })

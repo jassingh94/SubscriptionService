@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const Users = require('./models/users')
+const Plans = require('./models/plans')
+const Subscriptions = require('./models/subscriptions')
+
+const plansInstance = require('./lib/plans')
 
 /**
  *
@@ -31,12 +35,23 @@ class Adapter {
             _mongoUri = this.initHostedMongo();
         let db = this?.config?.env?.MONGO_DB || "subscription-service"
         _mongoUri = await _mongoUri;
-        mongoose.connect(`${_mongoUri}${db}`, {
+        
+        await mongoose.connect(`${_mongoUri}${db}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
-        });
+        })
+
+        mongoose.connection.on('error',(err)=>{
+            console.log("Mongo disconnected")            
+        })
+
 
         e.model.users = Users();
+        e.model.plans = Plans();
+        e.model.subscriptions = Subscriptions();
+
+        //reload plans on startup
+        await plansInstance.load(e)
 
         return true;
     }

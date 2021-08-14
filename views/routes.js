@@ -1,5 +1,6 @@
 
 const users = require('./users')
+const subscriptions = require('./subscriptions')
 module.exports = {
     /**
      * Register
@@ -9,5 +10,6 @@ module.exports = {
      */
     register: function (e, app) {
         users(e, app);
+        subscriptions(e, app);
     }
 }

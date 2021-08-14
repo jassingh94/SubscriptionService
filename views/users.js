@@ -1,4 +1,5 @@
 
+const users = require('../src/lib/users')
 /**
  *
  *
@@ -7,24 +8,15 @@
  */
 module.exports = (e, app) => {
     app.put('/user/:user', (req, res) => {
-        e
-            .model
-            .users
-            .findOne({
-                "user_name": req?.params?.user
-            })
+        users
+            .get(e, req?.params?.user)
             .then(user => {
                 if (!user) {
-                    return e
-                        .model
-                        .users
-                        .create({
-                            "user_name": req?.params?.user,
-                            "created_at": new Date()
-                        })
+                    return users
+                        .set(e, req?.params?.user)
                         .then(() => {
                             res.status(200);
-                            res.send({ "status": "SUCESS" });
+                            res.send({ "status": "SUCCESS" });
                         })
 
                 }
@@ -40,12 +32,8 @@ module.exports = (e, app) => {
     })
 
     app.get('/user/:user', (req, res) => {
-        e
-            .model
-            .users
-            .findOne({
-                "user_name": req?.params?.user
-            })
+        users
+            .get(e, req?.params?.user)
             .then(user => {
                 if (!user) {
                     res.status(500);

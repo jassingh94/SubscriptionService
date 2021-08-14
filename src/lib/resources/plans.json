@@ -1,0 +1,32 @@
+[
+    {
+        "id": "FREE",
+        "validity": "Infinite",
+        "cost": 0.0
+    },
+    {
+        "id": "TRIAL",
+        "validity": 7,
+        "cost": 0.0
+    },
+    {
+        "id": "LITE_1M",
+        "validity": 30,
+        "cost": 100.0
+    },
+    {
+        "id": "PRO_1M",
+        "validity": 30,
+        "cost": 200.0
+    },
+    {
+        "id": "LITE_6M",
+        "validity": 180,
+        "cost": 500.0
+    },
+    {
+        "id": "PRO_6M",
+        "validity": 180,
+        "cost": 900.0
+    }
+]

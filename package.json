@@ -2,9 +2,9 @@
   "name": "subscriptionservice",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node server -d"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "moment": "^2.29.1",
+    "mongodb-memory-server": "^7.3.6",
     "mongoose": "^5.13.7"
   }
 }

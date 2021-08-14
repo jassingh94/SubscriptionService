@@ -11,7 +11,7 @@ module.exports = () => {
 
     const subscriptionSchema = new Schema({
         "user_name": String,
-        "plan_id":String,
+        "plan_id": String,
         "start_date": Date,
         "end_date": Date
     });

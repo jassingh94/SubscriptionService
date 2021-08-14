@@ -39,6 +39,33 @@ class Subscriptions {
      *
      *
      * @param {*} e
+     * @param {*} username
+     * @param {*} [where={}]
+     * @return {*} 
+     * @memberof Subscriptions
+     */
+    getMany(e, username, where = {}) {
+        return e
+            .model
+            .subscriptions
+            .find({
+                "user_name": username,
+                ...where
+            })
+            .exec()
+    }
+
+    update(e, where, set) {
+        return e
+            .model
+            .subscriptions
+            .updateMany(where, set)
+    }
+
+    /**
+     *
+     *
+     * @param {*} e
      * @param {*} user_name
      * @param {*} plan_id
      * @param {*} start_date
@@ -77,28 +104,24 @@ class Subscriptions {
                     return Promise.reject("Invalid validity for plan")
                 }
 
-                // check if already subscribed to plan
+                // set existing subscription if any coinciding with the new subscriptions timeline
                 return this
-                    .get(e, user_name, { plan_id })
-                    .then(subscription => {
-                        // if not subscribed, add subscription
-                        if (!subscription) {
-                            return e
-                                .model
-                                .subscriptions
-                                .create({
-                                    user_name,
-                                    plan_id,
-                                    start_date,
-                                    end_date
-                                })
-                                .then(() => {
-                                    // return amount
-                                    return Promise.resolve(plan.cost * -1)
-                                })
-                        }
-                        else 
-                            return Promise.reject("Already subscribed to plan")
+                    .update(e, { end_date: { "$gte": start_date.toDate() }, start_date: { "$lte": end_date.toDate() } }, { end_date: moment.utc(start_date).subtract(1, 'days') })
+                    .then(() => {
+                        //set subscription
+                        return e
+                            .model
+                            .subscriptions
+                            .create({
+                                user_name,
+                                plan_id,
+                                start_date,
+                                end_date
+                            })
+                            .then(() => {
+                                // return amount
+                                return Promise.resolve(plan.cost * -1)
+                            })
                     })
 
 

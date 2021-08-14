@@ -15,7 +15,7 @@ module.exports = {
      * @param {*} env
      * @return {*} 
      */
-    init: function (args, env) {
+    init: function (env, args) {
         this.app = express();
         // for application json post bodies
         this.app.use(express.json());

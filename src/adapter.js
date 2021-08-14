@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Users = require('./models/users')
 const Plans = require('./models/plans')
 const Subscriptions = require('./models/subscriptions')
-
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const plansInstance = require('./lib/plans')
 
 /**
@@ -35,14 +35,14 @@ class Adapter {
             _mongoUri = this.initHostedMongo();
         let db = this?.config?.env?.MONGO_DB || "subscription-service"
         _mongoUri = await _mongoUri;
-        
+
         await mongoose.connect(`${_mongoUri}${db}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
 
-        mongoose.connection.on('error',(err)=>{
-            console.log("Mongo disconnected")            
+        mongoose.connection.on('error', (err) => {
+            console.log("Mongo disconnected")
         })
 
 
@@ -71,8 +71,16 @@ class Adapter {
      *
      * @memberof Adapter
      */
-    initInMemoryMongo() {
+    async initInMemoryMongo() {
 
+        // This will create an new instance of "MongoMemoryServer" and automatically start it
+        const mongod = await MongoMemoryServer.create();
+
+        let uri = mongod.getUri();
+
+        console.log(`Hosting in memory mongo with uri ${uri}`)
+
+        return uri;
     }
 }
 
